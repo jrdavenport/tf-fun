@@ -43,18 +43,12 @@ resource "google_compute_instance" "default" {
  }
 }
 
-
-
 resource "google_sql_database_instance" "postgresql" {
   name             = "tf-db-${random_string.db_id.result}"
   database_version = "POSTGRES_13"
   region           = "europe-west2"
-  deletion_protection = false
-  
 
   settings {
-    # Second-generation instance tiers are based on the machine
-    # type. See argument reference below.
     tier = "db-f1-micro"
   }
 }
@@ -69,6 +63,5 @@ resource "google_sql_database" "postgresql_db" {
 resource "google_sql_user" "postgresql_user" {
   name = "james"
   instance = google_sql_database_instance.postgresql.name
-  host = "%"
   password = "password"
 }
