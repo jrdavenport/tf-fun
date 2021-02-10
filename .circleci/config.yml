@@ -10,6 +10,13 @@ jobs:
       - checkout
       - terraform/plan:
           path: .
+  
+  terraform_apply:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/apply:
+          path: .
 
 workflows:
   commit:
@@ -18,4 +25,8 @@ workflows:
           filters:
             branches:
               ignore: master
+      - terraform_apply:
+          filters:
+            branches:
+              only: master
 
