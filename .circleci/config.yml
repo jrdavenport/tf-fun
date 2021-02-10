@@ -1,0 +1,32 @@
+version: 2.1
+
+orbs:
+  terraform: ovotech/terraform@1.8
+
+jobs:
+  terraform_plan:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/plan:
+          path: .
+  
+  terraform_apply:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/apply:
+          path: .
+
+workflows:
+  commit:
+    jobs:
+      - terraform_plan:
+          filters:
+            branches:
+              ignore: master
+      - terraform_apply:
+          filters:
+            branches:
+              only: master
+
