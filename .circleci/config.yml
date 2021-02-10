@@ -17,6 +17,7 @@ jobs:
       - checkout
       - terraform/apply:
           path: .
+          auto_approve: true
 
 workflows:
   commit:
