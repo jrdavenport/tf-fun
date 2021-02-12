@@ -1,32 +1,34 @@
 // Run `gcloud auth application-default login` once to provide credentails
 provider "google" {
  project     = "terraform-system-v2"
-#  credentials = file("tf-v2-svc-acc.json")
  region      = "us-west1"
 #  zone    = "us-central1-c" 
 }
 
-# resource "random_id" "instance_id" {
-#  byte_length = 8
-# }
+terraform {
+  backend "gcs"{
+    bucket      = "tf-backend-hdyh37"
+    prefix      = "dev"
+  }
+}
 
-# resource "random_string" "db_id" {
-#   length  = 8
-#   lower   = true
-#   upper   = false
-#   number  = true  
-#   special = false
-# }
+resource "random_string" "db_id" {
+  length  = 8
+  lower   = true
+  upper   = false
+  number  = true  
+  special = false
+}
 
-# resource "google_sql_database_instance" "postgresql" {
-#   name             = "tf-db-${random_string.db_id.result}"
-#   database_version = "POSTGRES_13"
-#   region           = "europe-west2"
+resource "google_sql_database_instance" "postgresql" {
+  name             = "tf-db-${random_string.db_id.result}"
+  database_version = "POSTGRES_13"
+  # region           = "europe-west2"
 
-#   settings {
-#     tier = "db-f1-micro"
-#   }
-# }
+  settings {
+    tier = "db-f1-micro"
+  }
+}
 
 # resource "google_sql_database" "postgresql_db" {
 #   name = "tf-db-db"
@@ -78,11 +80,3 @@ provider "google" {
 #    }
 #  }
 # }
-
-terraform {
-  backend "gcs"{
-    bucket      = "tf-backend-hdyh37"
-    # prefix      = "dev"
-    # credentials = "credentials.json"
-  }
-}
