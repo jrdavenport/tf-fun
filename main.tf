@@ -81,7 +81,7 @@ provider "google" {
 
 terraform {
   backend "gcs"{
-    bucket      = "tf-state-remote-jshh3d"
+    bucket      = "tf-backend-hdyh37"
     # prefix      = "dev"
     # credentials = "credentials.json"
   }
