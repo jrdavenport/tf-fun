@@ -11,6 +11,14 @@ jobs:
       - terraform/plan:
           path: .
           workspace: dev
+
+  terraform_plan_prd:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/plan:
+          path: .
+          workspace: prd
   
   terraform_apply_dev:
     executor: terraform/default
@@ -21,14 +29,6 @@ jobs:
           auto_approve: true
           workspace: dev
 
-  terraform_plan_prd:
-    executor: terraform/default
-    steps:
-      - checkout
-      - terraform/plan:
-          path: .
-          workspace: prd
-  
   terraform_apply_prd:
     executor: terraform/default
     steps:
