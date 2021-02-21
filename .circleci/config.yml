@@ -10,6 +10,7 @@ jobs:
       - checkout
       - terraform/plan:
           path: .
+          workspace: dev
   
   terraform_apply:
     executor: terraform/default
@@ -18,6 +19,7 @@ jobs:
       - terraform/apply:
           path: .
           auto_approve: true
+          workspace: dev
 
 workflows:
   commit:
