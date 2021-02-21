@@ -26,7 +26,7 @@ resource "random_string" "db_id" {
 }
 
 resource "google_sql_database_instance" "postgresql" {
-  name             = "tf-db-${random_string.db_id.result}"
+  name             = "tf-db-instance-${random_string.db_id.result}-${var.env}"
   database_version = "POSTGRES_13"
 
   settings {
@@ -35,31 +35,12 @@ resource "google_sql_database_instance" "postgresql" {
 }
 
 resource "google_sql_database" "postgresdb" {
-  name     = "tf-db-${random_string.db_id.result}-db"
+  name     = "tf-db-db-${random_string.db_id.result}-${var.env}"
   instance = google_sql_database_instance.postgresql.name
 }
 
 resource "google_sql_user" "postgresql_user" {
-  name = "james-${var.env}"
+  name = "james"
   instance = google_sql_database_instance.postgresql.name
   password = "password"
-}
-
-resource "google_storage_bucket" "static-site" {
-  name          = "image-store.com"
-  location      = "EU"
-  force_destroy = true
-
-  uniform_bucket_level_access = true
-
-  website {
-    main_page_suffix = "index.html"
-    not_found_page   = "404.html"
-  }
-  cors {
-    origin          = ["http://image-store.com"]
-    method          = ["GET", "HEAD", "PUT", "POST", "DELETE"]
-    response_header = ["*"]
-    max_age_seconds = 3600
-  }
 }
