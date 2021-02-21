@@ -11,6 +11,7 @@ jobs:
       - terraform/plan:
           path: .
           workspace: dev
+          var_file: "dev.tfvars"
 
   terraform_plan_prd:
     executor: terraform/default
@@ -19,6 +20,7 @@ jobs:
       - terraform/plan:
           path: .
           workspace: prd
+          var_file: "prd.tfvars"
   
   terraform_apply_dev:
     executor: terraform/default
@@ -28,6 +30,7 @@ jobs:
           path: .
           auto_approve: true
           workspace: dev
+          var_file: "dev.tfvars"
 
   terraform_apply_prd:
     executor: terraform/default
@@ -37,6 +40,7 @@ jobs:
           path: .
           auto_approve: true
           workspace: prd
+          var_file: "prd.tfvars"
 
 workflows:
   commit:
