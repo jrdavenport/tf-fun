@@ -5,6 +5,11 @@ provider "google" {
 #  zone    = "us-central1-c" 
 }
 
+variable "env" {
+  type = string
+  default = "dev"
+}
+
 terraform {
   backend "gcs"{
     bucket      = "tf-backend-hdyh37"
@@ -35,7 +40,7 @@ resource "google_sql_database" "postgresdb" {
 }
 
 resource "google_sql_user" "postgresql_user" {
-  name = "james"
+  name = "james-${var.env}"
   instance = google_sql_database_instance.postgresql.name
   password = "password"
 }
