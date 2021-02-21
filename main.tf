@@ -5,6 +5,11 @@ provider "google" {
 #  zone    = "us-central1-c" 
 }
 
+variable "env" {
+  type = string
+  default = "dev"
+}
+
 terraform {
   backend "gcs"{
     bucket      = "tf-backend-hdyh37"
@@ -21,7 +26,7 @@ resource "random_string" "db_id" {
 }
 
 resource "google_sql_database_instance" "postgresql" {
-  name             = "tf-db-${random_string.db_id.result}"
+  name             = "tf-db-instance-${random_string.db_id.result}-${var.env}"
   database_version = "POSTGRES_13"
 
   settings {
@@ -30,7 +35,7 @@ resource "google_sql_database_instance" "postgresql" {
 }
 
 resource "google_sql_database" "postgresdb" {
-  name     = "tf-db-${random_string.db_id.result}-db"
+  name     = "tf-db-db-${random_string.db_id.result}-${var.env}"
   instance = google_sql_database_instance.postgresql.name
 }
 
