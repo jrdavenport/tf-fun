@@ -29,6 +29,8 @@ resource "google_sql_database_instance" "postgresql" {
   name             = "tf-db-instance-${random_string.db_id.result}-${var.env}"
   database_version = "POSTGRES_13"
 
+  deletion_protection = false
+
   settings {
     tier = "db-f1-micro"
   }
