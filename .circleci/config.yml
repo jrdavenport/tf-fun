@@ -13,8 +13,8 @@ jobs:
       - checkout
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT"' >> $BASH_ENV
       - run:
-          name: "echo BS_BUILDenvironment variables from org-global context"
-          command: echo $BS_BUILD
+          name: "echo GOOGLE_SERVICE_ACCOUNT variables from org-global context"
+          command: echo $GOOGLE_SERVICE_ACCOUNT
           environment:
             GOOGLE_SERVICE_ACCOUNT1: $GOOGLE_SERVICE_ACCOUNT
       - terraform/plan:
