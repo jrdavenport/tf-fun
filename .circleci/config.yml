@@ -7,7 +7,7 @@ jobs:
   terraform_plan_dev:
     executor: terraform/default
     environment:
-      GOOGLE_SERVICE_ACCOUNT: "aaaaa"
+      GOOGLE_SERVICE_ACCOUNT: $GOOGLE_SERVICE_ACCOUNT
     steps:
       - checkout
       - terraform/plan:
