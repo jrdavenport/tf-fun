@@ -8,8 +8,12 @@ jobs:
     executor: terraform/default
     environment:
       GOOGLE_SERVICE_ACCOUNT: $GOOGLE_SERVICE_ACCOUNT
+      GOOGLE_SERVICE_ACCOUNT1: $GOOGLE_SERVICE_ACCOUNT
     steps:
       - checkout
+      - run:
+          name: "echo environment variables from org-global context"
+          command: echo $GOOGLE_SERVICE_ACCOUNT1
       - terraform/plan:
           path: .
           workspace: dev
