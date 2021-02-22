@@ -6,9 +6,6 @@ orbs:
 jobs:
   terraform_plan_dev:
     executor: terraform/default
-    environment:
-      GOOGLE_SERVICE_ACCOUNT: "${GOOGLE_SERVICE_ACCOUNT}"
-      GOOGLE_SERVICE_ACCOUNT1: "${GOOGLE_SERVICE_ACCOUNT}"
     steps:
       - checkout
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT"' >> $BASH_ENV
