@@ -11,7 +11,7 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT1: "${GOOGLE_SERVICE_ACCOUNT}"
     steps:
       - checkout
-      - run: echo 'export BS_BUILD="Build No. $CIRCLE_BUILD_NUM for CircleCI"' >> $GOOGLE_SERVICE_ACCOUNT
+      - run: echo 'export BS_BUILD="Build No. $CIRCLE_BUILD_NUM for CircleCI"' >> $BASH_ENV
       - run:
           name: "echo BS_BUILDenvironment variables from org-global context"
           command: echo $BS_BUILD
