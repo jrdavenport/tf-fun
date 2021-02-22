@@ -11,9 +11,10 @@ jobs:
       GOOGLE_SERVICE_ACCOUNT1: "${GOOGLE_SERVICE_ACCOUNT}"
     steps:
       - checkout
+      run: echo 'export BS_BUILD="Build No. $CIRCLE_BUILD_NUM for CircleCI"' >> $GOOGLE_SERVICE_ACCOUNT
       - run:
-          name: "echo environment variables from org-global context"
-          command: echo $GOOGLE_SERVICE_ACCOUNT1
+          name: "echo BS_BUILD environment variables from org-global context"
+          command: echo $BS_BUILD
           environment:
             GOOGLE_SERVICE_ACCOUNT1: $GOOGLE_SERVICE_ACCOUNT
       - terraform/plan:
@@ -57,10 +58,10 @@ workflows:
           filters:
             branches:
               ignore: main
-      - terraform_plan_prd:
-          filters:
-            branches:
-              ignore: main
+      # - terraform_plan_prd:
+      #     filters:
+      #       branches:
+      #         ignore: main
       - terraform_apply_dev:
           filters:
             branches:
