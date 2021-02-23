@@ -1,6 +1,6 @@
 provider "google" {
   project = "tf-system-dev"
-  region = "eu-west-2"
+  region = "europe-west2"
 }
 
 terraform {
