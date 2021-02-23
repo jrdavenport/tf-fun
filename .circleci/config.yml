@@ -51,7 +51,7 @@ jobs:
           # var_file: "prd.tfvars"
 
 workflows:
-  commit:
+  plan:
     jobs:
       - terraform_plan_dev:
           filters:
@@ -61,12 +61,19 @@ workflows:
           filters:
             branches:
               ignore: main
+  apply:
+    jobs:
       - terraform_apply_dev:
           filters:
             branches:
               only: main
+      - hold:
+          type: approval
+          requires:
+            - terraform_apply_dev
       - terraform_apply_prd:
+          requires:
+            - hold
           filters:
             branches:
               only: main
-
