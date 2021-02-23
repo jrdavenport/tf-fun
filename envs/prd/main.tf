@@ -1,4 +1,4 @@
-provider "aws" {
+provider "google" {
   project = "tf-system-prd"
   region = "eu-west-2"
 }
