@@ -8,45 +8,47 @@ jobs:
     executor: terraform/default
     steps:
       - checkout
-      - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT"' >> $BASH_ENV
-      - run:
-          name: "echo GOOGLE_SERVICE_ACCOUNT variables from org-global context"
-          command: echo $GOOGLE_SERVICE_ACCOUNT
-          environment:
-            GOOGLE_SERVICE_ACCOUNT1: $GOOGLE_SERVICE_ACCOUNT
+      # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
+      - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_DEV"' >> $BASH_ENV
       - terraform/plan:
-          path: .
-          workspace: dev
-          var_file: "dev.tfvars"
+          path: envs/dev
+          # workspace: dev
+          # var_file: "dev.tfvars"
 
   terraform_plan_prd:
     executor: terraform/default
     steps:
       - checkout
+      # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
+      - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_PRD"' >> $BASH_ENV
       - terraform/plan:
-          path: .
-          workspace: prd
-          var_file: "prd.tfvars"
+          path: envs/prd
+          # workspace: prd
+          # var_file: "prd.tfvars"
   
   terraform_apply_dev:
     executor: terraform/default
     steps:
       - checkout
+      # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
+      - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_DEV"' >> $BASH_ENV
       - terraform/apply:
-          path: .
+          path: envs/dev
           auto_approve: true
-          workspace: dev
-          var_file: "dev.tfvars"
+          # workspace: dev
+          # var_file: "dev.tfvars"
 
   terraform_apply_prd:
     executor: terraform/default
     steps:
       - checkout
+      # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
+      - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_PRD"' >> $BASH_ENV
       - terraform/apply:
-          path: .
+          path: envs/prd
           auto_approve: true
-          workspace: prd
-          var_file: "prd.tfvars"
+          # workspace: prd
+          # var_file: "prd.tfvars"
 
 workflows:
   commit:
@@ -55,10 +57,10 @@ workflows:
           filters:
             branches:
               ignore: main
-      # - terraform_plan_prd:
-      #     filters:
-      #       branches:
-      #         ignore: main
+      - terraform_plan_prd:
+          filters:
+            branches:
+              ignore: main
       - terraform_apply_dev:
           filters:
             branches:
