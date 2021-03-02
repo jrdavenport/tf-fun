@@ -31,3 +31,9 @@ resource "google_sql_user" "postgresql_user" {
   instance = google_sql_database_instance.postgresql.name
   password = "password"
 }
+
+
+resource "aws_instance" "example" {
+  ami           = "ami-12345678"
+  instance_type = "t2.micro"
+}
