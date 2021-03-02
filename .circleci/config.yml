@@ -10,6 +10,8 @@ jobs:
       - checkout
       # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_DEV"' >> $BASH_ENV
+      - run: echo 'export AWS_ACCESS_KEY="$AWS_ACCESS_KEY_DEV"' >> $BASH_ENV
+      - run: echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_DEV"' >> $BASH_ENV
       - terraform/plan:
           path: envs/dev
 
@@ -28,6 +30,8 @@ jobs:
       - checkout
       # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_DEV"' >> $BASH_ENV
+      - run: echo 'export AWS_ACCESS_KEY="$AWS_ACCESS_KEY_DEV"' >> $BASH_ENV
+      - run: echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_DEV"' >> $BASH_ENV
       - terraform/apply:
           path: envs/dev
           auto_approve: true
