@@ -21,6 +21,8 @@ jobs:
       - checkout
       # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_PRD"' >> $BASH_ENV
+      - run: echo 'export AWS_ACCESS_KEY="$AWS_ACCESS_KEY_PRD"' >> $BASH_ENV
+      - run: echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_PRD"' >> $BASH_ENV
       - terraform/plan:
           path: envs/prd
   
@@ -40,8 +42,11 @@ jobs:
     executor: terraform/default
     steps:
       - checkout
+      
       # https://discuss.circleci.com/t/environment-variable-interpolation-not-working/20299/4
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_PRD"' >> $BASH_ENV
+      - run: echo 'export AWS_ACCESS_KEY="$AWS_ACCESS_KEY_PRD"' >> $BASH_ENV
+      - run: echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_PRD"' >> $BASH_ENV
       - terraform/apply:
           path: envs/prd
           auto_approve: true
