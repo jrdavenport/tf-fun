@@ -12,8 +12,8 @@ jobs:
       - run: echo 'export GOOGLE_SERVICE_ACCOUNT="$GOOGLE_SERVICE_ACCOUNT_DEV"' >> $BASH_ENV
       - run: echo 'export AWS_ACCESS_KEY="$AWS_ACCESS_KEY_TEST"' >> $BASH_ENV
       - run: echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_TEST"' >> $BASH_ENV
-      - run: echo 'context_var from context = $context_var'
-      - run: echo 'GITHUB_USERNAME from env var = $GITHUB_USERNAME'
+      - run: echo "context_var from context = $context_var"
+      - run: echo "GITHUB_USERNAME from env var = $GITHUB_USERNAME"
       - terraform/plan:
           path: envs/dev
 
