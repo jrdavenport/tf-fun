@@ -1,6 +1,7 @@
 provider "google" {
   project = "tf-system-prd"
   region = "europe-west2"
+  version = "~> 3.0.0-beta.1"
 }
 
 provider "aws" {
